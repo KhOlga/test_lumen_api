@@ -7,11 +7,14 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable, HasFactory;
+	use Authenticatable;
+	use Authorizable;
+	use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +22,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+		'first_name',
+		'last_name',
+		'email',
+		'password',
+		'phone'
     ];
 
     /**
@@ -30,4 +37,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+	/**
+	 * The companies that belong to the user.
+	 */
+	public function companies(): BelongsToMany
+	{
+		return $this->belongsToMany(Company::class)->using(UserCompany::class);
+	}
 }
