@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-class RegisterUserController extends \App\Http\Controllers\Controller
+use App\Http\Controllers\Controller;
+
+class RegisterUserController extends Controller
 {
 	public function create()
 	{

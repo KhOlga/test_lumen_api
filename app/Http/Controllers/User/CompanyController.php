@@ -4,9 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+class CompanyController extends Controller
 {
-	public function create()
+	public function index()
 	{
 		//
 	}
