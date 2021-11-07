@@ -2,12 +2,23 @@
 
 namespace App\Providers;
 
+use App\Models\Company;
 use App\Models\User;
+use App\Policies\CompanyPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
+	/**
+	 * The policy mappings for the application.
+	 *
+	 * @var array
+	 */
+	protected $policies = [
+		//Company::class => CompanyPolicy::class,
+	];
+
     /**
      * Register any application services.
      *
@@ -35,5 +46,7 @@ class AuthServiceProvider extends ServiceProvider
                 return User::where('api_token', $request->input('api_token'))->first();
             }
         });
+
+		Gate::policy(Company::class, CompanyPolicy::class);
     }
 }
