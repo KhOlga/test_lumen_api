@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\User\LoginController;
-use App\Http\Controllers\User\RecoverPasswordController;
-use App\Http\Controllers\User\RegisterUserController;
-
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -18,19 +14,39 @@ use App\Http\Controllers\User\RegisterUserController;
 */
 
 $router->group(['prefix' => 'api', 'as' => 'api', 'namespace' => 'API'], function () use ($router) {
-	$router->group(['prefix' => 'user', 'as' => 'user', 'namespace' => 'User', 'middleware' => 'guest'],
+	$router->group(['prefix' => 'user', 'as' => 'user', 'namespace' => 'User', /*'middleware' => 'auth'*/],
 		function () use ($router) {
-			$router->get('register', ['uses' => 'RegisterUserController@create', 'as' => 'create']);
-			$router->post('register', ['uses' => 'RegisterUserController@store', 'as' => 'store']);
-
-			$router->get('sign-in', [ 'uses' => 'LoginController@create', 'as' => 'login']);
-			$router->post('sign-in', [ 'uses' => 'LoginController@store', 'as' => 'login_store']);
-
+			$router->post('register', ['uses' => 'UserController@register', 'as' => 'register']);
+			$router->post('sign-in', [ 'uses' => 'UserController@signIn', 'as' => 'sign_in']);
 			$router->post('recover-password', [
-				'uses' => 'RecoverPasswordController@recoverPassword', 'as' => 'recover_password'
+				'uses' => 'UserController@recoverPassword', 'as' => 'recover_password'
 			]);
 
 			$router->get('companies', ['uses' => 'CompanyController@index', 'as' => 'index']);
 			$router->post('companies', ['uses' => 'CompanyController@store', 'as' => 'store']);
 	});
 });
+
+/*
+	- https://domain.com/api/user/register
+	- method POST
+ *
+ *
+	- https://domain.com/api/user/sign-in
+	- method POST
+ *
+ *
+	- https://domain.com/api/user/recover-password
+	- method POST/PATCH
+ *
+ *
+	- https://domain.com/api/user/companies
+	- method GET
+ *
+ *
+	- https://domain.com/api/user/companies
+	- method POST
+ *
+ */
+
+

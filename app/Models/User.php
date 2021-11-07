@@ -43,6 +43,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 	 */
 	public function companies(): BelongsToMany
 	{
-		return $this->belongsToMany(Company::class)->using(UserCompany::class);
+		return $this->belongsToMany(Company::class)->using(CompanyUser::class);
 	}
 }
