@@ -13,7 +13,7 @@ class CreateUsersCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_companies', function (Blueprint $table) {
+        Schema::create('company_user', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->unsignedBigInteger('company_id');
 			$table->unsignedBigInteger('user_id');
@@ -39,6 +39,6 @@ class CreateUsersCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_companies');
+        Schema::dropIfExists('company_user');
     }
 }

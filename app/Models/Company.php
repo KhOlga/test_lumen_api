@@ -30,6 +30,6 @@ class Company extends Model
 	 */
 	public function users(): BelongsToMany
 	{
-		return $this->belongsToMany(User::class)->using(UserCompany::class);
+		return $this->belongsToMany(User::class)->using(CompanyUser::class);
 	}
 }
